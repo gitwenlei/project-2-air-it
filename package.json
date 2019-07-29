@@ -1,0 +1,23 @@
+{
+  "name": "project-2-air-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "grove_air.js",
+  "dependencies": {
+    "johnny-five": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitwenlei/project-2-air-it.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitwenlei/project-2-air-it/issues"
+  },
+  "homepage": "https://github.com/gitwenlei/project-2-air-it#readme"
+}
