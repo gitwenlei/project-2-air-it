@@ -44,7 +44,7 @@ board.on("ready", function() {
 
     // ==== Warm Up takes 3 mins =====
     function isWarming() {
-        return (Date.now() - startAt) < 180000;
+        return (Date.now() - startAt) < 30000;
     }
 
     // Conversion not required with version 1.3 of Grove Air Quality Sensor
