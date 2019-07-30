@@ -3,7 +3,6 @@ console.log("starting up!!");
 const express = require('express');
 const methodOverride = require('method-override');
 const pg = require('pg');
-const pool = new pg.Pool(configs);
 
 // Initialise postgres client
 const configs = {
@@ -38,11 +37,14 @@ app.engine('jsx', reactEngine);
 // Add CSS file in a public folder
 app.use(express.static(__dirname+'/public/'));
 
+const pool = new pg.Pool(configs);
 pool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
 
-
+let now = new Date();
+console.log(now);
+console.log(now[0]);
 
 // =============================
 // links to pages
@@ -57,8 +59,7 @@ const home = 'home.jsx';
 
 // GET Show All Sensor Readings
 app.get('/', (request, response) => {
-    const queryString = `SELECT * FROM Levels`;
-
+    const queryString = `SELECT * FROM air_levels`;
     pool.query(queryString, (err, result) => {
         if (err) {
             console.error('query error:', err.stack);
@@ -71,3 +72,23 @@ app.get('/', (request, response) => {
         }
     });
 });
+
+
+
+/**
+ * ===================================
+ * Listen to requests on port 3000
+ * ===================================
+ */
+const server = app.listen(3000, () => console.log('~~~ Tuning in to the waves of port 3000 ~~~'));
+
+let onClose = function(){
+    console.log("closing");
+    server.close(() => {
+        console.log('Process terminated');
+        pool.end( () => console.log('Shut down db connection pool'));
+    })
+};
+
+process.on('SIGTERM', onClose);
+process.on('SIGINT', onClose);
