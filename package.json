@@ -4,6 +4,7 @@
   "description": "",
   "main": "grove_air.js",
   "dependencies": {
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "johnny-five": "^1.2.0",
