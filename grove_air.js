@@ -34,15 +34,15 @@ board.on("ready", function() {
         var msg = quality(sensorValue);
         console.log(msg);
 
-        if (sensorValue > 50) {
-            console.log("Danger!");
+        if (sensorValue < 50) {
+            // console.log("Danger!");
             // blink led if sensor value is more than 50
             led.strobe();
         }
     });
 
 
-    // ==== Warm Up takes 3 mins =====
+    // ==== Warm Up takes 30 secs =====
     function isWarming() {
         return (Date.now() - startAt) < 30000;
     }
