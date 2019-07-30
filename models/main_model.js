@@ -6,8 +6,9 @@
 module.exports = (dbPoolInstance) => {
 
     // `dbPoolInstance` is accessible within this function scope
-    let getAll = (callback) => {
-        const query = `SELECT * FROM air_levels`;
+    let getLatest = (callback) => {
+        // select the latest entry
+        const query = `SELECT * FROM air_levels WHERE recorded_at= (SELECT MAX(recorded_at) FROM air_levels);`;
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -23,6 +24,6 @@ module.exports = (dbPoolInstance) => {
 
 
     return {
-        getAll,
+        getLatest,
     };
 };
