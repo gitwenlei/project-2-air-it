@@ -26,7 +26,6 @@ module.exports = (db) => {
   };
 
 
-
   /**
    * ===========================================
    * Export controller functions as a module
@@ -35,5 +34,4 @@ module.exports = (db) => {
   return {
     home: homePage,
   };
-
 }
