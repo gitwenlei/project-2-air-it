@@ -7,7 +7,7 @@ class Home extends React.Component {
         <div key={level.sensor_level} className="sensor_level">
             <p className="sensor_level">{level.sensor_level}</p>
             <p className="status">{level.status}</p>
-            <p className="status">{level.description}</p>
+            <p className="description">{level.description}</p>
             <p className="date">{level.recorded_at.toString()}</p>
         </div>
         );
