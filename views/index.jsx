@@ -17,7 +17,7 @@ class Home extends React.Component {
             <div className="sensor_level"><h1>{level.sensor_level}</h1></div>
             <p className="status">{level.status}</p>
             <p className="description">{level.description}</p>
-            <p className="recorded_at">{dateTime}</p>
+            <p className="recorded_at">Recorded On: {dateTime}</p>
         </div>
         );
     return (
