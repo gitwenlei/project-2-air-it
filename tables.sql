@@ -1,14 +1,15 @@
-CREATE TABLE Levels (
+CREATE TABLE IF NOT EXISTS air_levels (
   id SERIAL PRIMARY KEY,
   sensor_level INTEGER,
-  message TEXT,
-  captured_at TIMESTAMP
+  status TEXT,
+  description TEXT,
+  recorded_at TIMESTAMP
 );
 
 
-CREATE TABLE States (
+CREATE TABLE IF NOT EXISTS room_states (
   id SERIAL PRIMARY KEY,
-  room_state TEXT,
+  state TEXT,
   activated_at TIMESTAMP,
   activation BOOLEAN
 );
