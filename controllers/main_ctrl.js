@@ -7,17 +7,17 @@ module.exports = (db) => {
    */
 
   let homePage = (request, response) => {
-    db.main.getAll((error,result)=>{
+    db.main.getLatest((error,result)=>{
         if(error){
             console.log(error)
         }else{
             if (result) {
 
                 data = {
-                    levels:result
+                    levels: result
                 }
 
-                response.render('home',data);
+                response.render('index',data);
             }else{
                 console.log('done')
             }
