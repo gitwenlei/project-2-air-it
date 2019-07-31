@@ -13,6 +13,7 @@ class Default extends React.Component {
             <body>
             <Navbar title="nav-bar" />
             {this.props.children}
+            <script src="/script.js"></script>
             </body>
 
         </html>
