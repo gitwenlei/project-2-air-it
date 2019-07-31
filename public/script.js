@@ -28,22 +28,16 @@ var submitRequest = function() {
 
     var url = "/";
     request.open("POST", url);
-    // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-    let now = new Date();
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); //impt to incld to send request to browser
 
     var data = {
         state: 'Air Con On',
-        activated_at: now,
         activation: true
     }
 
-    // console.log("data:", data);
     // send the request
     request.send(JSON.stringify(data)); // convert object to string. request can only send string type
-    console.log("sent!");
-    // console.log("data:", JSON.stringify(data));
-    // request.send(data);
+    console.log("sent!:", JSON.stringify(data));
 };
 
 
