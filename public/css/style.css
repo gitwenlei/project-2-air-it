@@ -14,6 +14,16 @@ platium: #E1DFE5;
 darkcerulean: #084887;
 ceil: #909CC2;
 blue-green: #0FA3B1;
+button default: #3579f6;
+
+CG Blue #0075A2;
+Dark Sienna #481620;
+Italian Sky Blue: #ADF5FF;
+Turquoise Blue: #00FFC5;
+
+Blue Sapphire #255F85;
+Cardinal #C5283D;
+Mustard #FFC857;
 ==============*/
 
 
@@ -98,4 +108,8 @@ h1 {
 
 .room-btn {
 	margin: 10px;
+}
+
+.btn-primary {
+	border-radius: 10px;
 }
