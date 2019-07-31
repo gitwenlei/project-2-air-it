@@ -10,14 +10,22 @@ module.exports = (db) => {
     db.main.getLatest((error,result)=>{
         if(error){
             console.log(error)
-        }else{
+        } else {
+            // console.log(result);
             if (result) {
                 var data = {
-                    levels: result
+                    levels: result.air_levels,
+                    states: result.room_states
                 }
-                response.render('index',data);
+                response.render('index', data);
             }else{
-                console.log('done')
+                // var data = {
+                //     levels: result.air_levels,
+                //     states: result.room_states
+                // }
+                // response.render('index', data);
+                // console.log('done')
+                response.send("DIE LIAO")
             }
         }
     })
@@ -25,7 +33,7 @@ module.exports = (db) => {
 
 
   let airConOn = (request, response) => {
-    console.log("body: ", request.body);
+    // console.log("body: ", request.body);
     db.main.setRoomState(request.body, (error,result)=>{
         if(error){
             console.log(error)
