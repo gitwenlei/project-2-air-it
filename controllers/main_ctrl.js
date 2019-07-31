@@ -25,16 +25,14 @@ module.exports = (db) => {
 
 
   let airConOn = (request, response) => {
-    // console.log("body:", request.body);
+    console.log("body: ", request.body);
     db.main.setRoomState(request.body, (error,result)=>{
         if(error){
             console.log(error)
         } else {
-            if (result) {
-                response.send('room state updated!')
-            }
+            response.send('room state updated!') // must send response to request in script.js to confirm received
         }
-    })
+    });
   };
 
 
