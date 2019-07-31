@@ -1,6 +1,8 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+
+
 /**
  * ===================================
  * Configurations and set up
@@ -22,6 +24,7 @@ const reactEngine = require('express-react-views').createEngine();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
+
 
 
 /**
@@ -48,6 +51,7 @@ const setRoutesFunction = require('./routes');
 
 // call it and pass in the "app" so that we can set routes on it (also models)
 setRoutesFunction(app, allModels);
+
 
 /**
  * ===================================
