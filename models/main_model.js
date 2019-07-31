@@ -23,7 +23,25 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    let setRoomState = (content, callback) => {
+        const query = `INSERT INTO room_states (state, activated_at, activation) VALUES($1, $2, $3) RETURNING *`;
+        let values = [content.state, content.activated_at, content.activation];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0]);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
     return {
         getLatest,
+        setRoomState
     };
 };
