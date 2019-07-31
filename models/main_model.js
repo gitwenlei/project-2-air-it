@@ -24,8 +24,10 @@ module.exports = (dbPoolInstance) => {
 
 
     let setRoomState = (content, callback) => {
-        const query = `INSERT INTO room_states (state, activated_at, activation) VALUES($1, $2, $3) RETURNING *`;
-        let values = [content.state, content.activated_at, content.activation];
+        console.log('content', content);
+        const query = `INSERT INTO room_states (state, activation) VALUES($1, $2) RETURNING *`;
+
+        let values = [content.state, content.activation];
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if (error) {
                 callback(error, null);
