@@ -1,7 +1,6 @@
 var React = require('react');
 var Default = require('./layout/default');
 
-
 class Home extends React.Component {
   render() {
 
@@ -29,8 +28,9 @@ class Home extends React.Component {
                 <h1 className="title">Porpor's air</h1>
                   {levelList}
                   <div className="btn-group" role="group" aria-label="Basic example">
-                      <button type="button" className="room-btn btn btn-primary">AIR-CON OFF</button>
-                      <button type="button" className="room-btn btn btn-primary">AIR PURIFIER OFF</button>
+                      <button type="button" id="refresh" className="room-btn btn btn-light">REFRESH</button>
+                      <button type="button" id="air-con" className="room-btn btn btn-primary">AIR-CON OFF</button>
+                      <button type="button" id="air-pure" className="room-btn btn btn-primary">AIR PURIFIER OFF</button>
                   </div>
                 </div>
             </div>
