@@ -12,3 +12,6 @@ VALUES(554, 'High Pollution - Action Recommended', 'Are the windows closed?');
 
 INSERT INTO room_states (state, activation)
 VALUES('Air Con On', true);
+
+INSERT INTO room_states (state, activation)
+VALUES('Air Con On', false);
