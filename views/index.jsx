@@ -1,6 +1,7 @@
 var React = require('react');
 var Default = require('./layout/default');
 
+
 class Home extends React.Component {
   render() {
 
@@ -14,10 +15,10 @@ class Home extends React.Component {
 
     const levelList = this.props.levels.map(level =>
         <div key={level.sensor_level} className="sensor_reading">
+            <p className="recorded_at">Recorded On: {dateTime}</p>
             <div className="sensor_level"><h1>{level.sensor_level}</h1></div>
             <p className="status">{level.status}</p>
             <p className="description">{level.description}</p>
-            <p className="recorded_at">Recorded On: {dateTime}</p>
         </div>
         );
     return (
@@ -27,9 +28,14 @@ class Home extends React.Component {
                 <div className="sensor_wrapper col d-flex flex-column text-center">
                 <h1 className="title">Porpor's air</h1>
                   {levelList}
+                  <div className="btn-group" role="group" aria-label="Basic example">
+                      <button type="button" className="room-btn btn btn-primary">AIR-CON OFF</button>
+                      <button type="button" className="room-btn btn btn-primary">AIR PURIFIER OFF</button>
+                  </div>
                 </div>
             </div>
         </div>
+
       </Default>
     );
   }
