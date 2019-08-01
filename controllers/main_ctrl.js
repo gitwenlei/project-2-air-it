@@ -60,19 +60,19 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                 console.log('status:', status);
                 console.log('description:', description);
 
-                // var sensorObj = {
-                //     sensor_level: sensorValue,
-                //     status: status,
-                //     description: description
-                // };
+                var sensorObj = {
+                    sensor_level: sensorValue,
+                    status: status,
+                    description: description
+                };
 
-                // db.main.insertAir(sensorObj, (error,result) => {
-                //     if(error){
-                //         console.log(error)
-                //     } else {
-                //         res.send(sensorObj);
-                //     }
-                // });
+                db.main.insertAir(sensorObj, (error,result) => {
+                    if(error){
+                        console.log(error)
+                    } else {
+                        res.send(sensorObj);
+                    }
+                });
             }
         });
     };
