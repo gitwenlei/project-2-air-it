@@ -5,6 +5,19 @@
  */
 module.exports = (dbPoolInstance) => {
 
+    // insert live data into database
+
+    let insertAir = (content, callback) => {
+
+
+        // let query = `INSERT INTO air_levels (sensor_level, status, description) VALUES($1, $2, $3) RETURNING *`;
+        // const values = [content.quality, ]
+
+
+
+    };
+
+
     // `dbPoolInstance` is accessible within this function scope
     let getLatest = (callback) => {
         // select the latest entry
