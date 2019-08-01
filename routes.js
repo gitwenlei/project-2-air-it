@@ -14,6 +14,7 @@ module.exports = (app, allModels) => {
 
   // require the controller
   const mainControllerCallbacks = require('./controllers/main_ctrl')(allModels);
+  app.get('/live', mainControllerCallbacks.liveData);
   app.get('/', mainControllerCallbacks.home);
   app.post('/', mainControllerCallbacks.intervene);
 };
