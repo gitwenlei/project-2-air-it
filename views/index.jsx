@@ -14,23 +14,6 @@ class Home extends React.Component {
 
     const levels = this.props.levels[0];
 
-    // let airconButton = "";
-
-    // if (this.props.states[0].state === 'Air Con On' && this.props.states[0].activation != true) {
-    //     airconButton = <button type="button" id="air-con" className="room-btn btn btn-danger"></button>;
-    // } else {
-    //     airconButton = <button type="button" id="air-con" className="room-btn btn btn-primary"></button>;
-    // }
-    // return airconButton;
-
-    // check room_states table whether air-con is on
-    // let airconButton = "";
-    // if (aircon==="on") {
-    //     airconButton = <button type="button" id="air-con" className="room-btn btn btn-primary">AIR-CON On</button>
-    //     return airconButton
-    // }
-
-
     return (
       <Default title="air_levels">
         <div className="container">
