@@ -82,4 +82,10 @@ window.onload = () => {
         }
 
     });
+
+    let someInterval = 60000;
+
+    setTimeout(function() {
+        window.location.reload();
+    }, someInterval)
 }
