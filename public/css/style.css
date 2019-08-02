@@ -126,5 +126,19 @@ h1 {
 	border-style: none;
 	margin-right: 10px;
 	padding: 20px;
+	color: #000;
 	background-color: #fff;
+	-webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.btn-air-con:hover {
+	background-color: #E6E6E6;
+	color: #000;
+}
+
+.btn-air-pure:hover {
+	background-color: #E6E6E6;
+	color: #000;
 }
