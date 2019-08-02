@@ -6,7 +6,6 @@
 module.exports = (dbPoolInstance) => {
 
     // insert live data into database
-
     let insertAir = (content, callback) => {
         let query = `INSERT INTO air_levels (sensor_level, status, description) VALUES($1, $2, $3) RETURNING *`;
         const values = [content.sensor_level, content.status, content.description];
@@ -61,6 +60,21 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let plotData = (callback) => {
+        const query = `SELECT * FROM air_levels`;
+        dbPoolInstance.query(query, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
 
     let setRoomState = (content, callback) => {
         // console.log('content', content);
@@ -84,6 +98,7 @@ module.exports = (dbPoolInstance) => {
     return {
         getLatest,
         setRoomState,
-        insertAir
+        insertAir,
+        plotData
     };
 };
