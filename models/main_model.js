@@ -61,7 +61,7 @@ module.exports = (dbPoolInstance) => {
     };
 
     let plotData = (callback) => {
-        const query = `SELECT * FROM air_levels`;
+        const query = `SELECT * FROM air_levels WHERE id>718;`;
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
