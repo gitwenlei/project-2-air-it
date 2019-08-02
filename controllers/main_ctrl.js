@@ -12,6 +12,65 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
    * ===========================================
    */
 
+   // ==========================================
+    // Show landing page (it is also login page)
+    // ==========================================
+    let indexPage = (request, response) => { // function declared in routes.js
+        response.render('index'); //display login form
+    };
+
+
+    // =======================================
+    // Check user login details
+    // ========================================
+    let checkLogin = (request, response) => { // function declared in routes.js
+        // console.log("check login:", request);
+        // console.log("check response: ", response);
+
+        db.main.checkUsers(request.body, (error, results) => {
+            // request.body = what  POST sent over
+            // console.log(results);
+
+            // if there is result sent back from model
+            if (results !== null) {
+                // console.log(results);
+                // set the user_id to the results id
+                let user_id = results[0].id;
+                // this mean correct username and password entered
+                console.log('correct' , results[0]);
+
+                // sent cookied loggedin as true
+                response.cookie('loggedin', true);
+
+                // sent cookie user_id as user_id
+                // we want to keep track that this user has login
+                response.cookie('user_id', user_id);
+
+                // go to home page if login successful
+                // if these cookies are stored, user will not see login page
+                response.redirect('/home');
+            } else {
+                // other response incorrect password
+                console.log("incorrect password");
+                response.send('invalid input');
+            }
+        });
+    };
+
+    // how to check login
+    // user enter name in user name field
+    // user enter password in password field
+    // when user clicks on submit -> it will do a POST request to ctrl /check path
+    // in ctrlr checkLogin - there is a request & response.
+    // request = IncomingMessage = returns what the user entered in the input fields
+    // body: { username: 'sdsds', password: 'sdsds' },
+    // response = serverResponse returns: body: { username: '22222', password: '22222' },
+    // request.body is passed into model to check against database
+
+
+
+
+
     let sensorCloud = (req, res) => {
         request(gaUrl, function (error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -89,7 +148,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                         levels: result.air_levels,
                         states: result.room_states
                     }
-                    response.render('index', data);
+                    response.render('home', data);
                 }else{
                     // var data = {
                     //     levels: result.air_levels,
@@ -157,8 +216,10 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
    * ===========================================
    */
   return {
-    liveData: sensorCloud,
+    index: indexPage,
+    check: checkLogin,
     home: homePage,
+    liveData: sensorCloud,
     intervene: airConOn,
     chart: chartPage
   };
