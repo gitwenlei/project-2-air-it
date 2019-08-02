@@ -72,9 +72,11 @@ window.onload = () => {
 
     });
 
-    let someInterval = 60000;
+    let updateEveryMin = 60000;
+    let updateEveryQuarterHour = 900000;
+    let updateEveryHalfHour = 1800000;
 
     setTimeout(function() {
         window.location.reload();
-    }, someInterval)
+    }, updateEveryQuarterHour)
 }
