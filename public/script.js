@@ -11,17 +11,6 @@ var responseHandler = function() {
   console.log("response text", this.responseText);
   console.log("status text", this.statusText);
   console.log("status code", this.status);
-
-  // if (this.status === 200) {
-  //   if (airConState === false ) {
-  //       airConState = true;
-  //   } else {
-  //       airConState = airConState;
-  //   }
-  //   return airConState;
-  // }
-  // let response = JSON.parse(this.responseText);
-  // console.log(response);
 };
 
 
