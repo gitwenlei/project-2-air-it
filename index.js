@@ -132,8 +132,11 @@ let sensorCloud = () => {
 // ====================================
 // Only retrieve data at specific time
 // ====================================
-var someInterval = 60000;
-var reference = setInterval(sensorCloud, someInterval);
+let updateEveryMin = 60000;
+let updateEveryQuarterHour = 900000;
+let updateEveryHalfHour = 1800000;
+
+var reference = setInterval(sensorCloud, updateEveryQuarterHour);
 
 //////////////////////////////////////////
 
