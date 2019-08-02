@@ -2,7 +2,7 @@ console.log("we are in the browser");
 
 var button = document.querySelector("#air-con");
 var checked;
-var activationState;
+var activationState = false;
 var btnTxt = 'AIR-CON';
 
 
@@ -62,6 +62,8 @@ window.onload = () => {
     button.addEventListener("click", function() {
         submitRequest();
         let btn = document.querySelector("#air-con");
+        btn.style.backgroundColor = '#B3B3B3';
+
         if (activationState) {
             btn.innerText = btnTxt + ' ON';
             btn.style.backgroundColor = '#3579f6';
