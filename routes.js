@@ -13,9 +13,35 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const mainControllerCallbacks = require('./controllers/main_ctrl')(allModels);
-  app.get('/live', mainControllerCallbacks.liveData);
-  app.get('/', mainControllerCallbacks.home);
-  app.post('/', mainControllerCallbacks.intervene);
-  app.get('/chart', mainControllerCallbacks.chart);
+    const mainControllerCallbacks = require('./controllers/main_ctrl')(allModels);
+
+
+    // ===========================================
+    // GET landing page (which is also login page)
+    // ===========================================
+    app.get('/', mainControllerCallbacks.index);
+
+
+    // ========================
+    // LOGIN STUFF
+    // ========================
+    // verify user login
+    app.post('/check', mainControllerCallbacks.check);
+
+
+    // ========================
+    // SENSOR STUFF
+    // ========================
+    // show live sensor datat
+    app.get('/live', mainControllerCallbacks.liveData);
+
+    // show most recent recorded sensor data
+    app.get('/home', mainControllerCallbacks.home);
+    // set room conditions
+    app.post('/home', mainControllerCallbacks.intervene);
+
+    // show data chart of past 24 hrs dats
+    app.get('/chart', mainControllerCallbacks.chart);
+
+
 };
