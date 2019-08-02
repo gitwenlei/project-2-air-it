@@ -15,3 +15,15 @@ VALUES('Air Con On', true);
 
 INSERT INTO room_states (state, activation)
 VALUES('Air Con On', false);
+
+INSERT INTO users (username, password)
+VALUES ('susan', '1234');
+
+INSERT INTO users (username, password)
+VALUES ('peter', 'abcd');
+
+INSERT INTO locations (location_name)
+VALUES ('GA');
+
+INSERT INTO locations (location_name)
+VALUES ('HOME');
