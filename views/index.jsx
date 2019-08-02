@@ -26,10 +26,9 @@ class Home extends React.Component {
                     <p className="status">{levels.status}</p>
                     <p className="description">{levels.description}</p>
                 </div>
-                  <div className="btn-group" role="group" aria-label="Basic example">
-                      <button type="button" id="refresh" className="room-btn btn btn-light">REFRESH</button>
-                      <button type="button" id="air-con" className="room-btn btn btn-primary">AIR-CON OFF</button>
-                      <button type="button" id="air-pure" className="room-btn btn btn-primary">AIR PURIFIER OFF</button>
+                  <div className="btn-group">
+                      <button type="button" id="air-con" className="btn-air-con">AIR-CON OFF</button>
+                      <button type="button" id="air-pure" className="btn-air-pure">AIR PURIFIER OFF</button>
                   </div>
                 </div>
             </div>
