@@ -115,7 +115,7 @@ let sensorCloud = () => {
                 };
 
                 var doThing = (error,result) => {
-                    console.log("kk")
+                    console.log("returning air levels")
                     if(error){
                         console.log(error)
                     } else {
