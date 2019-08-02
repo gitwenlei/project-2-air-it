@@ -120,7 +120,7 @@ h1 {
 }
 
 .btn-air-con, .btn-air-pure {
-	width: auto;
+	width: 180px;
 	height: 60px;
 	border-radius: 10px;
 	border-style: none;
