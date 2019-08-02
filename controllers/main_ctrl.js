@@ -57,8 +57,8 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                 var status = quality(sensorValue);
                 var description = action(sensorValue);
 
-                console.log('status:', status);
-                console.log('description:', description);
+                // console.log('status:', status);
+                // console.log('description:', description);
 
                 var sensorObj = {
                     sensor_level: sensorValue,
@@ -117,6 +117,40 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
 
 
 
+    let chartPage = (request, response) => {
+        db.main.plotData((error,result) => {
+            if(error){
+                console.log(error)
+            } else {
+                if (result) {
+                    // console.log(result);
+                    var sensorLevels = result.map(function(value) {
+                       return value.sensor_level;
+                    });
+
+                    var timeStamp = result.map(function(value) {
+                       return value.recorded_at;
+                    });
+
+                    // console.log('sensor:', sensorLevels);
+                    // console.log('timeDate:', timeStamp);
+
+                    var data = {
+                        yValues: sensorLevels,
+                        xValues: timeStamp
+                    }
+                    // console.log("data in main ctr js: ", data.xValues);
+                    response.render('chart', data);
+                }else{
+                    response.send('chart not loading!');
+                }
+            }
+        });
+    };
+
+
+
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -125,6 +159,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
   return {
     liveData: sensorCloud,
     home: homePage,
-    intervene: airConOn
+    intervene: airConOn,
+    chart: chartPage
   };
 }
