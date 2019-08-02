@@ -17,4 +17,5 @@ module.exports = (app, allModels) => {
   app.get('/live', mainControllerCallbacks.liveData);
   app.get('/', mainControllerCallbacks.home);
   app.post('/', mainControllerCallbacks.intervene);
+  app.get('/chart', mainControllerCallbacks.chart);
 };
