@@ -34,7 +34,7 @@ body {
 
 .container {
 /*	border: 1px solid #00ff00;*/
-	max-width: 400px;
+	max-width: 480px;
 }
 
 .title {
@@ -47,7 +47,9 @@ body {
 
 
 .sensor_reading {
-/*	border: 1px solid #ffff00;*/
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	max-width: 480px;
 	padding: 0;
 	margin: 0;
@@ -59,9 +61,10 @@ body {
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	width: 350px;
+	height: 350px;
 	border-radius: 50%;
 	border: 10px solid #fff;
-	height: 350px;
 	color: #fff;
 	padding: 0;
 	margin: 0;
@@ -102,6 +105,8 @@ h1 {
 }
 
 .btn-group {
+	display: flex;
+	justify-content: center;
 	margin: 10px 0 40px 0;
 }
 
@@ -112,4 +117,14 @@ h1 {
 
 .btn-primary {
 	border-radius: 10px;
+}
+
+.btn-air-con, .btn-air-pure {
+	width: auto;
+	height: 60px;
+	border-radius: 10px;
+	border-style: none;
+	margin-right: 10px;
+	padding: 20px;
+	background-color: #B3B3B3;
 }
