@@ -13,3 +13,20 @@ CREATE TABLE IF NOT EXISTS room_states (
   activation BOOLEAN,
   activated_at TIMESTAMP DEFAULT now()
 );
+
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username TEXT,
+  password TEXT
+);
+
+CREATE TABLE IF NOT EXISTS locations (
+  id SERIAL PRIMARY KEY,
+  location_name TEXT
+);
+
+CREATE TABLE IF NOT EXISTS user_location (
+  user_id INT,
+  location_id INT
+);
