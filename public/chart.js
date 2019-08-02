@@ -17,18 +17,17 @@ let sensorTime = myLabels.map(myTime => {
 
 
 var data = sensor;
-var labels = sensorTime;
+var labels = myLabels;
 
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: myLabels,
+        labels: labels,
         datasets: [{
                 label: 'Air Quality Index',
-                data: myData,
+                data: data,
                 borderColor: "#3cba9f",
-                // fill: true,
                 backgroundColor: 'rgba(0, 119, 204, 0.5)'
             }]
           },
