@@ -67,7 +67,47 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     // response = serverResponse returns: body: { username: '22222', password: '22222' },
     // request.body is passed into model to check against database
 
+    // ==============================================
+    // Goto home page based on login user id
+    // ==============================================
+    let homePage = (request, response) => {
+        console.log("cookies:", request.cookies);
+        // this returns cookies: { loggedin: 'true', user_id: '1' }
+        // meaning user_id: 1 is logged in
 
+        if (request.cookies.loggedin) {
+            console.log("YAY~~~ Logged In!");
+        } else {
+            console.log("OOOPps~ Not logged in");
+        }
+
+
+        // var message = "Sorry you have no access to this page";
+        // response.send(message);
+
+        // db.main.getLatest((error,result)=>{
+        //     if(error){
+        //         console.log(error)
+        //     } else {
+        //         // console.log(result);
+        //         if (result) {
+        //             var data = {
+        //                 levels: result.air_levels,
+        //                 states: result.room_states
+        //             }
+        //             response.render('home', data);
+        //         }else{
+        //             // var data = {
+        //             //     levels: result.air_levels,
+        //             //     states: result.room_states
+        //             // }
+        //             // response.render('index', data);
+        //             // console.log('done')
+        //             response.send("DIE LIAO")
+        //         }
+        //     }
+        // });
+    };
 
 
 
@@ -137,30 +177,30 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     };
 
 
-    let homePage = (request, response) => {
-        db.main.getLatest((error,result)=>{
-            if(error){
-                console.log(error)
-            } else {
-                // console.log(result);
-                if (result) {
-                    var data = {
-                        levels: result.air_levels,
-                        states: result.room_states
-                    }
-                    response.render('home', data);
-                }else{
-                    // var data = {
-                    //     levels: result.air_levels,
-                    //     states: result.room_states
-                    // }
-                    // response.render('index', data);
-                    // console.log('done')
-                    response.send("DIE LIAO")
-                }
-            }
-        });
-    };
+    // let homePage = (request, response) => {
+    //     db.main.getLatest((error,result)=>{
+    //         if(error){
+    //             console.log(error)
+    //         } else {
+    //             // console.log(result);
+    //             if (result) {
+    //                 var data = {
+    //                     levels: result.air_levels,
+    //                     states: result.room_states
+    //                 }
+    //                 response.render('home', data);
+    //             }else{
+    //                 // var data = {
+    //                 //     levels: result.air_levels,
+    //                 //     states: result.room_states
+    //                 // }
+    //                 // response.render('index', data);
+    //                 // console.log('done')
+    //                 response.send("DIE LIAO")
+    //             }
+    //         }
+    //     });
+    // };
 
 
     let airConOn = (request, response) => {
