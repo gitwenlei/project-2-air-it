@@ -1,29 +1,40 @@
-var React = require("react");
+var React = require('react');
+var Default = require('./layout/default');
 
 class Home extends React.Component {
   render() {
-    //console.log("date: ", this.props.levels[0].recorded_at.toString());
-    const levelList = this.props.levels.map(level =>
-        <div key={level.sensor_level} className="sensor_level">
-            <p className="sensor_level">{level.sensor_level}</p>
-            <p className="status">{level.status}</p>
-            <p className="description">{level.description}</p>
-            <p className="date">{level.recorded_at.toString()}</p>
-        </div>
-        );
+
+    let now = this.props.levels[0].recorded_at;
+    let hours = now.getHours();
+    let min = now.getMinutes();
+    let year = now.getFullYear();
+    let mth = now.getMonth() + 1;
+    let date = now.getDate();
+    let dateTime  = `${year}-${mth}-${date} ${hours}:${min}`;
+
+    const levels = this.props.levels[0];
+
     return (
-      <html>
-        <body>
+      <Default title="air_levels">
         <div className="container">
             <div className="row">
-                <div className="col">
-                  <h1>Welcome!</h1>
-                  {levelList}
+                <div className="sensor_wrapper col d-flex flex-column text-center">
+                <h1 className="title">Porpor's air</h1>
+                <div key={levels.sensor_level} className="sensor_reading">
+                    <p className="recorded_at">Recorded On: {dateTime}</p>
+                    <div className="sensor_level"><h1>{levels.sensor_level}</h1></div>
+                    <p className="status">{levels.status}</p>
+                    <p className="description">{levels.description}</p>
+                </div>
+                  <div className="btn-group">
+                      <button type="button" id="air-con" className="btn-air-con">AIR-CON OFF</button>
+                      <button type="button" id="air-pure" className="btn-air-pure">AIR PURIFIER OFF</button>
+                  </div>
                 </div>
             </div>
         </div>
-        </body>
-      </html>
+
+      </Default>
     );
   }
 }
