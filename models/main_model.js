@@ -49,7 +49,7 @@ module.exports = (dbPoolInstance) => {
 
     // insert live data into database
     let insertAir = (content, callback) => {
-        let query = `INSERT INTO air_levels (sensor_level, status, description) VALUES($1, $2, $3) RETURNING *`;
+        let query = `INSERT INTO air_levels_test (sensor_level, status, description) VALUES($1, $2, $3) RETURNING *`;
         const values = [content.sensor_level, content.status, content.description];
 
         dbPoolInstance.query(query, values, (error, queryResult) => {
@@ -73,7 +73,7 @@ module.exports = (dbPoolInstance) => {
             air_levels: null,
             room_states: null
         };
-        let query = `SELECT * FROM air_levels WHERE recorded_at= (SELECT MAX(recorded_at) FROM air_levels);`;
+        let query = `SELECT * FROM air_levels_test WHERE recorded_at= (SELECT MAX(recorded_at) FROM air_levels);`;
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -105,7 +105,7 @@ module.exports = (dbPoolInstance) => {
 
 
     let plotData = (callback) => {
-        const query = `SELECT * FROM air_levels`;
+        const query = `SELECT * FROM air_levels_test WHERE location_id=1`;
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
