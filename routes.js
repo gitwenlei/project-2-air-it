@@ -39,7 +39,7 @@ module.exports = (app, allModels) => {
     // ========================
     // USER PAGE
     // ========================
-    app.get('/home/:id', mainControllerCallbacks.userHome);
+    // app.get('/home/:id', mainControllerCallbacks.userHome);
 
     // ========================
     // HOME PAGE
