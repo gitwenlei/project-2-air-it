@@ -102,10 +102,8 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-
-
     let plotData = (callback) => {
-        const query = `SELECT * FROM air_levels_test WHERE location_id=1`;
+        const query = `SELECT air_levels_test.location_id, air_levels_test.sensor_level, air_levels_test.recorded_at FROM air_levels_test INNER JOIN user_location ON (user_location.location_id = air_levels_test.location_id) WHERE user_location.user_id = 2`;
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -118,6 +116,22 @@ module.exports = (dbPoolInstance) => {
             }
         });
     };
+
+
+    // let plotData = (callback) => {
+    //     const query = `SELECT * FROM air_levels_test WHERE location_id=1`;
+    //     dbPoolInstance.query(query, (error, queryResult) => {
+    //         if (error) {
+    //             callback(error, null);
+    //         } else {
+    //             if (queryResult.rows.length > 0) {
+    //                 callback(null, queryResult.rows);
+    //             } else {
+    //                 callback(null, null);
+    //             }
+    //         }
+    //     });
+    // };
 
 
 
