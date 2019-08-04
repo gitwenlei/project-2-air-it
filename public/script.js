@@ -59,6 +59,7 @@ var submitRequest = function() {
 
 window.onload = () => {
     console.log("loaded!");
+
     button.addEventListener("click", function() {
         submitRequest();
         let btn = document.querySelector("#air-con");
