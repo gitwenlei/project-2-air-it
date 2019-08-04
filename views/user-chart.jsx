@@ -1,6 +1,5 @@
 var React = require('react');
 var Default = require('./layout/default');
-// var Navbar = require('./components/navbar');
 
 class UserChart extends React.Component {
   render() {
@@ -14,7 +13,7 @@ class UserChart extends React.Component {
     // console.log("time: ", this.props.xValues);
     // console.log("type for time:", typeof this.props.xValues);
     // console.log("user id inside chart pg:", this.props.userId);
-    console.log('location:', this.props.userLocation);
+    // console.log('location:', this.props.userLocation);
 
   return (
     <Default title="air_levels">
@@ -42,9 +41,10 @@ class UserChart extends React.Component {
             __html:
             `var sensorLevels = '${this.props.yValues}';
             var timeDate = '${this.props.xValues}';
+            console.log("HELLO");
             `
-        }} />
-        <script src="chart.js"></script>
+        }} ></script>
+        <script src="/chart.js"></script>
     </Default>
 
     );
