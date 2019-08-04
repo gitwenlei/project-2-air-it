@@ -13,7 +13,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
    */
 
    // ==========================================
-    // Show landing page (it is also login page)
+    // Show LANDING page (it is also LOGIN page)
     // ==========================================
     let indexPage = (request, response) => { // function declared in routes.js
         response.render('index'); //display login form
@@ -21,8 +21,20 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
 
 
     // =======================================
-    // Check user login details
+    // Check user LOGIN details
     // ========================================
+    /*
+    * how to check login
+    * user enter name in user name field
+    * user enter password in password field
+    * when user clicks on submit -> it will do a POST request to ctrl /check path
+    * in ctrlr checkLogin - there is a request & response.
+    * request = IncomingMessage = returns what the user entered in the input fields
+    * body: { username: 'sdsds', password: 'sdsds' },
+    * response = serverResponse returns: body: { username: '22222', password: '22222' },
+    * request.body is passed into model to check against database
+    */
+
     let checkLogin = (request, response) => { // function declared in routes.js
         // console.log("check login:", request);
         // console.log("check response: ", response);
@@ -57,65 +69,12 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
         });
     };
 
-    // how to check login
-    // user enter name in user name field
-    // user enter password in password field
-    // when user clicks on submit -> it will do a POST request to ctrl /check path
-    // in ctrlr checkLogin - there is a request & response.
-    // request = IncomingMessage = returns what the user entered in the input fields
-    // body: { username: 'sdsds', password: 'sdsds' },
-    // response = serverResponse returns: body: { username: '22222', password: '22222' },
-    // request.body is passed into model to check against database
 
 
 
     // ==============================================
-    // Goto home page based on login user id
+    // Goto user HOME page based on login user id
     // ==============================================
-    // let userHome = (request, response) => {
-    //     console.log("cookies:", request.cookies);
-    //     // this returns cookies: { loggedin: 'true', user_id: '1' }
-    //     // meaning user_id: 1 is logged in
-
-    //     if (request.cookies.loggedin === undefined) {
-    //         console.log("Oops~ Not logged in");
-    //         response.status(403);
-    //     } else {
-    //         // how do I know if user is logged in?
-    //         // if the cookies stored loogedin = true & user_id is not undefined
-    //         // then it means user is logged in
-    //         console.log("YAY~~~ Logged In!");
-    //         // show most recent sensor reading
-    //         db.main.getLatest((error,result)=>{
-    //             if(error){
-    //                 console.log(error)
-    //             } else {
-    //                 // console.log(result);
-    //                 if (result) {
-    //                     var data = {
-    //                         levels: result.air_levels,
-    //                         states: result.room_states
-    //                     }
-    //                     response.render('user-home', data);
-    //                 }else{
-
-    //                     response.send("DIE LIAO")
-    //                 }
-    //             }
-    //         });
-
-    //     }
-    //     // response.send("welcome");
-    //     // var message = "Sorry you have no access to this page";
-    //     // response.send(message);
-
-    // };
-
-
-
-    // // ==============================================
-    // // Goto user home page based on login user id
-    // // ==============================================
     let userHomePage = (request, response) => {
         console.log("cookies:", request.cookies);
         const user_id = request.cookies.user_id;
@@ -153,60 +112,72 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                     }
                 }
             });
-
         }
-        // response.send("welcome");
-        // var message = "Sorry you have no access to this page";
-        // response.send(message);
-
     };
 
 
 
 
-    // // // ==============================================
-    // // // Goto home page based on login user id
-    // // // ==============================================
-    // let homePage = (request, response) => {
-    //     console.log("cookies:", request.cookies);
-    //     // this returns cookies: { loggedin: 'true', user_id: '1' }
-    //     // meaning user_id: 1 is logged in
+    // ==============================================
+    // Goto user CHART page based on login user id
+    // ==============================================
+    let userChartPage = (request, response) => {
+        console.log("cookies:", request.cookies);
+        const user_id = request.cookies.user_id;
+        request.body.user_id = user_id;
+        console.log("UUUUUUUUUUUUuser id: ", user_id);
 
-    //     if (request.cookies.loggedin === undefined) {
-    //         console.log("Oops~ Not logged in");
-    //         response.status(403);
-    //     } else {
-    //         // how do I know if user is logged in?
-    //         // if the cookies stored loogedin = true & user_id is not undefined
-    //         // then it means user is logged in
-    //         console.log("YAY~~~ Logged In!");
-    //         // show most recent sensor reading
-    //         db.main.getLatest((error,result)=>{
-    //             if(error){
-    //                 console.log(error)
-    //             } else {
-    //                 // console.log(result);
-    //                 if (result) {
-    //                     var data = {
-    //                         levels: result.air_levels,
-    //                         states: result.room_states
-    //                     }
-    //                     response.render('home', data);
-    //                 }else{
+        if (request.cookies.loggedin === undefined) {
+            console.log("Oops~ Not logged in");
+            response.send("Oops~ Not logged in");
+            response.status(403);
+        } else {
+            console.log("YAY~~~ Logged In!");
+            db.main.plotUserData(user_id, (error,result) => {
+                if(error){
+                    console.log(error)
+                } else {
+                    if (result) {
+                        // console.log(result);
+                        var location = result[0].location_name;
+                        console.log("location:", location);
 
-    //                     response.send("DIE LIAO")
-    //                 }
-    //             }
-    //         });
+                        var id = result[0].user_id;
+                        console.log("XXXXXXXXXXXXXuser id:", id);
 
-    //     }
-    //     // response.send("welcome");
-    //     // var message = "Sorry you have no access to this page";
-    //     // response.send(message);
+                        var sensorLevels = result.map(function(value) {
+                           return value.sensor_level;
+                        });
 
-    // };
+                        var timeStamp = result.map(function(value) {
+                           return value.recorded_at;
+                        });
+
+                        // console.log('sensor:', sensorLevels);
+                        // console.log('timeDate:', timeStamp);
+
+                        var data = {
+                            yValues: sensorLevels,
+                            xValues: timeStamp,
+                            userLocation: location,
+                            userId: id
+                        }
+                        // console.log("sensorLevels: ", data.yValues);
+                        // console.log("timeStamp: ", data.xValues);
+                        response.render('user-chart', data);
+                    }else{
+                        response.send('chart not loading!');
+                    }
+                }
+            });
+        }
+    };
 
 
+
+    // ==============================================
+    // Retrieve sensor data from cloud server
+    // ==============================================
 
     let sensorCloud = (req, res) => {
         request(gaUrl, function (error, response, body) {
@@ -274,31 +245,9 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     };
 
 
-    // let homePage = (request, response) => {
-    //     db.main.getLatest((error,result)=>{
-    //         if(error){
-    //             console.log(error)
-    //         } else {
-    //             // console.log(result);
-    //             if (result) {
-    //                 var data = {
-    //                     levels: result.air_levels,
-    //                     states: result.room_states
-    //                 }
-    //                 response.render('home', data);
-    //             }else{
-    //                 // var data = {
-    //                 //     levels: result.air_levels,
-    //                 //     states: result.room_states
-    //                 // }
-    //                 // response.render('index', data);
-    //                 // console.log('done')
-    //                 response.send("DIE LIAO")
-    //             }
-    //         }
-    //     });
-    // };
-
+    // ==============================================
+    // Check if air-con is on
+    // ==============================================
 
     let airConOn = (request, response) => {
         // console.log("body: ", request.body);
@@ -312,89 +261,6 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     };
 
 
-
-    // let chartPage = (request, response) => {
-    //     db.main.plotData((error,result) => {
-    //         if(error){
-    //             console.log(error)
-    //         } else {
-    //             if (result) {
-    //                 // console.log(result);
-    //                 var sensorLevels = result.map(function(value) {
-    //                    return value.sensor_level;
-    //                 });
-
-    //                 var timeStamp = result.map(function(value) {
-    //                    return value.recorded_at;
-    //                 });
-
-    //                 // console.log('sensor:', sensorLevels);
-    //                 // console.log('timeDate:', timeStamp);
-
-    //                 var data = {
-    //                     yValues: sensorLevels,
-    //                     xValues: timeStamp
-    //                 }
-    //                 // console.log("data in main ctr js: ", data.xValues);
-    //                 response.render('chart', data);
-    //             }else{
-    //                 response.send('chart not loading!');
-    //             }
-    //         }
-    //     });
-    // };
-
-
-    let userChartPage = (request, response) => {
-        console.log("cookies:", request.cookies);
-        const user_id = request.cookies.user_id;
-        request.body.user_id = user_id;
-        console.log("UUUUUUUUUUUUuser id: ", user_id);
-
-        if (request.cookies.loggedin === undefined) {
-            console.log("Oops~ Not logged in");
-            response.status(403);
-        } else {
-            console.log("YAY~~~ Logged In!");
-            db.main.plotUserData(user_id, (error,result) => {
-                if(error){
-                    console.log(error)
-                } else {
-                    if (result) {
-                        // console.log(result);
-                        var location = result[0].location_name;
-                        console.log("location:", location);
-
-                        var id = result[0].user_id;
-                        console.log("XXXXXXXXXXXXXuser id:", id);
-
-                        var sensorLevels = result.map(function(value) {
-                           return value.sensor_level;
-                        });
-
-                        var timeStamp = result.map(function(value) {
-                           return value.recorded_at;
-                        });
-
-                        // console.log('sensor:', sensorLevels);
-                        // console.log('timeDate:', timeStamp);
-
-                        var data = {
-                            yValues: sensorLevels,
-                            xValues: timeStamp,
-                            userLocation: location,
-                            userId: id
-                        }
-                        // console.log("sensorLevels: ", data.yValues);
-                        // console.log("timeStamp: ", data.xValues);
-                        response.render('user-chart', data);
-                    }else{
-                        response.send('chart not loading!');
-                    }
-                }
-            });
-        }
-    };
 
 
   /**
