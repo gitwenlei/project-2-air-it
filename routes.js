@@ -39,13 +39,13 @@ module.exports = (app, allModels) => {
     // ========================
     // USER PAGE
     // ========================
+    // show most recent recorded sensor data
     app.get('/home/:id', mainControllerCallbacks.userHome);
 
     // ========================
     // HOME PAGE
     // ========================
-    // show most recent recorded sensor data
-    // app.get('/home', mainControllerCallbacks.home);
+
     // set room conditions
     app.post('/home', mainControllerCallbacks.intervene);
 
@@ -53,7 +53,7 @@ module.exports = (app, allModels) => {
     // CHART PAGE
     // ========================
     // show data chart of past 24 hrs dats
-    app.get('/chart', mainControllerCallbacks.chart);
+    app.get('/chart/:id', mainControllerCallbacks.userChart);
 
 
 };
