@@ -46,9 +46,9 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                 // we want to keep track that this user has login
                 response.cookie('user_id', user_id);
 
-                // go to home page if login successful
+                // go to user home page if login successful
                 // if these cookies are stored, user will not see login page
-                response.redirect('/home');
+                response.redirect('/home/' + user_id);
             } else {
                 // other response incorrect password
                 console.log("incorrect password");
@@ -113,16 +113,14 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
 
 
 
-
-
-
-
-
     // // ==============================================
-    // // Goto home page based on login user id
+    // // Goto user home page based on login user id
     // // ==============================================
-    let homePage = (request, response) => {
+    let userHomePage = (request, response) => {
         console.log("cookies:", request.cookies);
+        const user_id = request.cookies.user_id;
+        request.body.user_id = user_id;
+
         // this returns cookies: { loggedin: 'true', user_id: '1' }
         // meaning user_id: 1 is logged in
 
@@ -135,17 +133,17 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
             // then it means user is logged in
             console.log("YAY~~~ Logged In!");
             // show most recent sensor reading
-            db.main.getLatest((error,result)=>{
+            db.main.getUserLatest(user_id, (error,result) => {
                 if(error){
                     console.log(error)
                 } else {
                     // console.log(result);
                     if (result) {
                         var data = {
-                            levels: result.air_levels,
-                            states: result.room_states
+                            levels: result
+                            // states: result.room_states
                         }
-                        response.render('home', data);
+                        response.render('user-home', data);
                     }else{
 
                         response.send("DIE LIAO")
@@ -159,6 +157,51 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
         // response.send(message);
 
     };
+
+
+
+
+    // // // ==============================================
+    // // // Goto home page based on login user id
+    // // // ==============================================
+    // let homePage = (request, response) => {
+    //     console.log("cookies:", request.cookies);
+    //     // this returns cookies: { loggedin: 'true', user_id: '1' }
+    //     // meaning user_id: 1 is logged in
+
+    //     if (request.cookies.loggedin === undefined) {
+    //         console.log("Oops~ Not logged in");
+    //         response.status(403);
+    //     } else {
+    //         // how do I know if user is logged in?
+    //         // if the cookies stored loogedin = true & user_id is not undefined
+    //         // then it means user is logged in
+    //         console.log("YAY~~~ Logged In!");
+    //         // show most recent sensor reading
+    //         db.main.getLatest((error,result)=>{
+    //             if(error){
+    //                 console.log(error)
+    //             } else {
+    //                 // console.log(result);
+    //                 if (result) {
+    //                     var data = {
+    //                         levels: result.air_levels,
+    //                         states: result.room_states
+    //                     }
+    //                     response.render('home', data);
+    //                 }else{
+
+    //                     response.send("DIE LIAO")
+    //                 }
+    //             }
+    //         });
+
+    //     }
+    //     // response.send("welcome");
+    //     // var message = "Sorry you have no access to this page";
+    //     // response.send(message);
+
+    // };
 
 
 
@@ -309,8 +352,8 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
   return {
     index: indexPage,
     check: checkLogin,
-    // userHome: userHome,
-    home: homePage,
+    userHome: userHomePage,
+    // home: homePage,
     liveData: sensorCloud,
     intervene: airConOn,
     chart: chartPage
