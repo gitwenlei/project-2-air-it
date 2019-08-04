@@ -310,38 +310,88 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
 
 
 
-    let chartPage = (request, response) => {
-        db.main.plotData((error,result) => {
-            if(error){
-                console.log(error)
-            } else {
-                if (result) {
-                    // console.log(result);
-                    var sensorLevels = result.map(function(value) {
-                       return value.sensor_level;
-                    });
+    // let chartPage = (request, response) => {
+    //     db.main.plotData((error,result) => {
+    //         if(error){
+    //             console.log(error)
+    //         } else {
+    //             if (result) {
+    //                 // console.log(result);
+    //                 var sensorLevels = result.map(function(value) {
+    //                    return value.sensor_level;
+    //                 });
 
-                    var timeStamp = result.map(function(value) {
-                       return value.recorded_at;
-                    });
+    //                 var timeStamp = result.map(function(value) {
+    //                    return value.recorded_at;
+    //                 });
 
-                    // console.log('sensor:', sensorLevels);
-                    // console.log('timeDate:', timeStamp);
+    //                 // console.log('sensor:', sensorLevels);
+    //                 // console.log('timeDate:', timeStamp);
 
-                    var data = {
-                        yValues: sensorLevels,
-                        xValues: timeStamp
+    //                 var data = {
+    //                     yValues: sensorLevels,
+    //                     xValues: timeStamp
+    //                 }
+    //                 // console.log("data in main ctr js: ", data.xValues);
+    //                 response.render('chart', data);
+    //             }else{
+    //                 response.send('chart not loading!');
+    //             }
+    //         }
+    //     });
+    // };
+
+
+    let userChartPage = (request, response) => {
+        console.log("cookies:", request.cookies);
+        const user_id = request.cookies.user_id;
+        request.body.user_id = user_id;
+        console.log("UUUUUUUUUUUUuser id: ", user_id);
+
+        if (request.cookies.loggedin === undefined) {
+            console.log("Oops~ Not logged in");
+            response.status(403);
+        } else {
+            console.log("YAY~~~ Logged In!");
+            db.main.plotUserData(user_id, (error,result) => {
+                if(error){
+                    console.log(error)
+                } else {
+                    if (result) {
+                        // console.log(result);
+                        var location = result[0].location_name;
+                        console.log("location:", location);
+
+                        var id = result[0].user_id;
+                        console.log("XXXXXXXXXXXXXuser id:", id);
+
+                        var sensorLevels = result.map(function(value) {
+                           return value.sensor_level;
+                        });
+
+                        var timeStamp = result.map(function(value) {
+                           return value.recorded_at;
+                        });
+
+                        // console.log('sensor:', sensorLevels);
+                        // console.log('timeDate:', timeStamp);
+
+                        var data = {
+                            yValues: sensorLevels,
+                            xValues: timeStamp,
+                            userLocation: location,
+                            userId: id
+                        }
+                        // console.log("sensorLevels: ", data.yValues);
+                        // console.log("timeStamp: ", data.xValues);
+                        response.render('user-chart', data);
+                    }else{
+                        response.send('chart not loading!');
                     }
-                    // console.log("data in main ctr js: ", data.xValues);
-                    response.render('chart', data);
-                }else{
-                    response.send('chart not loading!');
                 }
-            }
-        });
+            });
+        }
     };
-
-
 
 
   /**
@@ -353,9 +403,8 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     index: indexPage,
     check: checkLogin,
     userHome: userHomePage,
-    // home: homePage,
+    userChart: userChartPage,
     liveData: sensorCloud,
-    intervene: airConOn,
-    chart: chartPage
+    intervene: airConOn
   };
 }
