@@ -3,6 +3,7 @@ var Default = require('./layout/default');
 
 class UserPage extends React.Component {
   render() {
+
     console.log("USER PAGE:" , this.props.levels[0]);
 
     let now = this.props.levels[0].recorded_at;
