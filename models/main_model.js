@@ -70,11 +70,6 @@ module.exports = (dbPoolInstance) => {
     // GET latest sensor level based on user id & subscription
     // ========================================================
     let getUserLatest = (user_id, callback) => {
-        // select the latest entry
-        // let data = {
-        //     air_levels: null
-        // };
-
         let query = `SELECT
                         user_location.user_id,
                         air_levels_test.sensor_level,
@@ -88,7 +83,9 @@ module.exports = (dbPoolInstance) => {
                         INNER JOIN locations
                             ON (locations.id = air_levels_test.location_id)
                     WHERE user_location.user_id = user_id
-                    AND user_location.location_id = locations.id;`;
+                    AND user_location.location_id = locations.id
+                    ORDER BY air_levels_test.recorded_at
+                    DESC`;
 
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
@@ -143,8 +140,24 @@ module.exports = (dbPoolInstance) => {
     //     });
     // };
 
-    let plotData = (callback) => {
-        const query = `SELECT air_levels_test.location_id, air_levels_test.sensor_level, air_levels_test.recorded_at FROM air_levels_test INNER JOIN user_location ON (user_location.location_id = air_levels_test.location_id) WHERE user_location.user_id = 2`;
+    let plotUserData = (user_id, callback) => {
+        const query = `SELECT
+                        user_location.user_id,
+                        air_levels_test.sensor_level,
+                        air_levels_test.status,
+                        air_levels_test.description,
+                        air_levels_test.recorded_at,
+                        locations.location_name
+                        FROM air_levels_test
+                        INNER JOIN user_location
+                            ON (user_location.location_id = air_levels_test.location_id)
+                        INNER JOIN locations
+                            ON (locations.id = air_levels_test.location_id)
+                        WHERE user_location.user_id = user_id
+                        AND user_location.location_id = locations.id
+                        ORDER BY air_levels_test.recorded_at
+                        ASC`;
+
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -201,6 +214,7 @@ module.exports = (dbPoolInstance) => {
         getUserLatest,
         setRoomState,
         insertAir,
-        plotData
+        plotUserData
+        // plotData
     };
 };
