@@ -8,7 +8,6 @@ class UserChart extends React.Component {
     var userHomeUrl = "/home/" + this.props.userId;
     var userChartUrl = "/chart/" + this.props.userId;
 
-
     // console.log("sensor: ", this.props.yValues);
     // console.log("time: ", this.props.xValues);
     // console.log("type for time:", typeof this.props.xValues);
