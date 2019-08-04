@@ -15,8 +15,29 @@ class UserPage extends React.Component {
 
     const levels = this.props.levels[0];
 
+    console.log("home navbar user id:", this.props.levels[0].user_id);
+    var userHomeUrl = "/home/" + this.props.levels[0].user_id;
+    var userChartUrl = "/chart/" + this.props.levels[0].user_id;
+
     return (
+
       <Default title="air_levels">
+
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href={userHomeUrl}>Home</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="navbar-nav">
+                    <a className="nav-item nav-link active" href={userChartUrl}>Hourly <span className="sr-only">(current)</span></a>
+                    <a className="nav-item nav-link" href="#">Weekly</a>
+                    <a className="nav-item nav-link" href="#">My Profile</a>
+                </div>
+            </div>
+        </nav>
+
         <div className="container">
             <div className="row">
                 <div className="sensor_wrapper col d-flex flex-column text-center">
