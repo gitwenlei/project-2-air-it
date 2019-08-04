@@ -5,8 +5,9 @@
  */
 module.exports = (dbPoolInstance) => {
 
+
     // ========================
-    // Check user login details
+    // CHECK user login details
     // ========================
     let checkUsers = (main, callback) => {  // called in ctrlr file
         // const password = sha256(tweedr.password);
@@ -45,9 +46,9 @@ module.exports = (dbPoolInstance) => {
 
 
 
-
-
-    // insert live data into database
+    // ========================================================
+    // INSERT live sensor data into database
+    // ========================================================
     let insertAir = (content, callback) => {
         let query = `INSERT INTO air_levels_test (sensor_level, status, description) VALUES($1, $2, $3) RETURNING *`;
         const values = [content.sensor_level, content.status, content.description];
@@ -64,6 +65,8 @@ module.exports = (dbPoolInstance) => {
             }
         });
     };
+
+
 
 
     // ========================================================
@@ -103,43 +106,9 @@ module.exports = (dbPoolInstance) => {
 
 
 
-
-    // // `dbPoolInstance` is accessible within this function scope
-    // let getLatest = (callback) => {
-    //     // select the latest entry
-    //     let data = {
-    //         air_levels: null,
-    //         room_states: null
-    //     };
-    //     let query = `SELECT * FROM air_levels_test WHERE recorded_at= (SELECT MAX(recorded_at) FROM air_levels);`;
-    //     dbPoolInstance.query(query, (error, queryResult) => {
-    //         if (error) {
-    //             callback(error, null);
-    //         } else {
-    //             if (queryResult.rows.length > 0) {
-    //                 // callback(null, queryResult.rows);
-    //                 data.air_levels = queryResult.rows;
-    //                 query = `SELECT * FROM room_states WHERE state='Air Con On' AND (activated_at=(SELECT MAX(activated_at) FROM room_states));`;
-    //                 dbPoolInstance.query(query, (error, queryResult) => {
-    //                     if (error) {
-    //                         callback(error, null);
-    //                     } else {
-    //                         if (queryResult.rows.length > 0) {
-    //                             data.room_states = queryResult.rows;
-    //                             callback(null, data);
-    //                         }
-    //                         // else {
-    //                         //     callback(null, null);
-    //                         // }
-    //                     }
-    //                 });
-    //             } else {
-    //                 callback(null, null);
-    //             }
-    //         }
-    //     });
-    // };
-
+    // ===========================================================
+    // GET data based on user id & subscription & plot user chart
+    // ===========================================================
     let plotUserData = (user_id, callback) => {
         const query = `SELECT
                         user_location.user_id,
@@ -172,24 +141,11 @@ module.exports = (dbPoolInstance) => {
     };
 
 
-    // let plotData = (callback) => {
-    //     const query = `SELECT * FROM air_levels_test WHERE location_id=1`;
-    //     dbPoolInstance.query(query, (error, queryResult) => {
-    //         if (error) {
-    //             callback(error, null);
-    //         } else {
-    //             if (queryResult.rows.length > 0) {
-    //                 callback(null, queryResult.rows);
-    //             } else {
-    //                 callback(null, null);
-    //             }
-    //         }
-    //     });
-    // };
 
 
-
-
+    // ===========================================================
+    // POST room state based on user click
+    // ===========================================================
     let setRoomState = (content, callback) => {
         // console.log('content', content);
         const query = `INSERT INTO room_states (state, activation) VALUES($1, $2) RETURNING *`;
@@ -212,9 +168,8 @@ module.exports = (dbPoolInstance) => {
     return {
         checkUsers,
         getUserLatest,
-        setRoomState,
+        plotUserData,
         insertAir,
-        plotUserData
-        // plotData
+        setRoomState
     };
 };
