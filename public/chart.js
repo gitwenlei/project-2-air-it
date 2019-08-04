@@ -1,8 +1,3 @@
-// var myData = [39, 40, 39, 40, 41, 42, 42];
-// var myLabels =  ["8am", "10am", "12pm", "2pm", "4pm", "6pm", "8pm"];
-// console.log('sensor:', sensorLevels);
-// console.log('timing:', timeDate);
-
 let myData = sensorLevels.split(",");
 let sensor = myData.map(level => {
     return parseInt(level)
