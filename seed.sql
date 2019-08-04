@@ -28,5 +28,9 @@ VALUES ('GA');
 INSERT INTO locations (location_name)
 VALUES ('HOME');
 
+
 INSERT INTO user_location (user_id, location_id)
-VALUES (1, 1);
+VALUES (1, 2);
+
+INSERT INTO user_location (user_id, location_id)
+VALUES (2, 1);
