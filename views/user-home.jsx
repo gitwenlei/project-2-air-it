@@ -3,6 +3,7 @@ var Default = require('./layout/default');
 
 class UserPage extends React.Component {
   render() {
+    console.log("USER PAGE:" , this.props.levels[0]);
 
     let now = this.props.levels[0].recorded_at;
     let hours = now.getHours();
@@ -19,7 +20,7 @@ class UserPage extends React.Component {
         <div className="container">
             <div className="row">
                 <div className="sensor_wrapper col d-flex flex-column text-center">
-                <h1 className="title">Porpor's air</h1>
+                <h1 className="title">{levels.location_name}</h1>
                 <div key={levels.sensor_level} className="sensor_reading">
                     <p className="recorded_at">Recorded On: {dateTime}</p>
                     <div className="sensor_level"><h1>{levels.sensor_level}</h1></div>
