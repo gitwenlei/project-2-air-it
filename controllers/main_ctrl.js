@@ -127,12 +127,15 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
         if (request.cookies.loggedin === undefined) {
             console.log("Oops~ Not logged in");
             response.status(403);
+            response.send("Oops~ Not logged in");
         } else {
             // how do I know if user is logged in?
             // if the cookies stored loogedin = true & user_id is not undefined
             // then it means user is logged in
             console.log("YAY~~~ Logged In!");
             // show most recent sensor reading
+            console.log("CTRLR USER ID: ", user_id);
+
             db.main.getUserLatest(user_id, (error,result) => {
                 if(error){
                     console.log(error)
