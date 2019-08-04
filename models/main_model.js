@@ -66,41 +66,82 @@ module.exports = (dbPoolInstance) => {
     };
 
 
-    // `dbPoolInstance` is accessible within this function scope
-    let getLatest = (callback) => {
+    // ========================================================
+    // GET latest sensor level based on user id & subscription
+    // ========================================================
+    let getUserLatest = (user_id, callback) => {
         // select the latest entry
-        let data = {
-            air_levels: null,
-            room_states: null
-        };
-        let query = `SELECT * FROM air_levels_test WHERE recorded_at= (SELECT MAX(recorded_at) FROM air_levels);`;
+        // let data = {
+        //     air_levels: null
+        // };
+
+        let query = `SELECT
+                        user_location.user_id,
+                        air_levels_test.sensor_level,
+                        air_levels_test.status,
+                        air_levels_test.description,
+                        air_levels_test.recorded_at,
+                        locations.location_name
+                    FROM air_levels_test
+                        INNER JOIN user_location
+                            ON (user_location.location_id = air_levels_test.location_id)
+                        INNER JOIN locations
+                            ON (locations.id = air_levels_test.location_id)
+                    WHERE user_location.user_id = user_id
+                    AND user_location.location_id = locations.id;`;
+
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
             } else {
                 if (queryResult.rows.length > 0) {
-                    // callback(null, queryResult.rows);
-                    data.air_levels = queryResult.rows;
-                    query = `SELECT * FROM room_states WHERE state='Air Con On' AND (activated_at=(SELECT MAX(activated_at) FROM room_states));`;
-                    dbPoolInstance.query(query, (error, queryResult) => {
-                        if (error) {
-                            callback(error, null);
-                        } else {
-                            if (queryResult.rows.length > 0) {
-                                data.room_states = queryResult.rows;
-                                callback(null, data);
-                            }
-                            // else {
-                            //     callback(null, null);
-                            // }
-                        }
-                    });
+                    callback(null, queryResult.rows);
                 } else {
                     callback(null, null);
                 }
             }
         });
     };
+
+
+
+
+
+    // // `dbPoolInstance` is accessible within this function scope
+    // let getLatest = (callback) => {
+    //     // select the latest entry
+    //     let data = {
+    //         air_levels: null,
+    //         room_states: null
+    //     };
+    //     let query = `SELECT * FROM air_levels_test WHERE recorded_at= (SELECT MAX(recorded_at) FROM air_levels);`;
+    //     dbPoolInstance.query(query, (error, queryResult) => {
+    //         if (error) {
+    //             callback(error, null);
+    //         } else {
+    //             if (queryResult.rows.length > 0) {
+    //                 // callback(null, queryResult.rows);
+    //                 data.air_levels = queryResult.rows;
+    //                 query = `SELECT * FROM room_states WHERE state='Air Con On' AND (activated_at=(SELECT MAX(activated_at) FROM room_states));`;
+    //                 dbPoolInstance.query(query, (error, queryResult) => {
+    //                     if (error) {
+    //                         callback(error, null);
+    //                     } else {
+    //                         if (queryResult.rows.length > 0) {
+    //                             data.room_states = queryResult.rows;
+    //                             callback(null, data);
+    //                         }
+    //                         // else {
+    //                         //     callback(null, null);
+    //                         // }
+    //                     }
+    //                 });
+    //             } else {
+    //                 callback(null, null);
+    //             }
+    //         }
+    //     });
+    // };
 
     let plotData = (callback) => {
         const query = `SELECT air_levels_test.location_id, air_levels_test.sensor_level, air_levels_test.recorded_at FROM air_levels_test INNER JOIN user_location ON (user_location.location_id = air_levels_test.location_id) WHERE user_location.user_id = 2`;
@@ -157,7 +198,7 @@ module.exports = (dbPoolInstance) => {
 
     return {
         checkUsers,
-        getLatest,
+        getUserLatest,
         setRoomState,
         insertAir,
         plotData
