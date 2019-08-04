@@ -82,7 +82,7 @@ module.exports = (dbPoolInstance) => {
                             ON (user_location.location_id = air_levels_test.location_id)
                         INNER JOIN locations
                             ON (locations.id = air_levels_test.location_id)
-                    WHERE user_location.user_id = user_id
+                    WHERE user_location.user_id = '${user_id}'
                     AND user_location.location_id = locations.id
                     ORDER BY air_levels_test.recorded_at
                     DESC`;
