@@ -39,13 +39,13 @@ module.exports = (app, allModels) => {
     // ========================
     // USER PAGE
     // ========================
-    // app.get('/home/:id', mainControllerCallbacks.userHome);
+    app.get('/home/:id', mainControllerCallbacks.userHome);
 
     // ========================
     // HOME PAGE
     // ========================
     // show most recent recorded sensor data
-    app.get('/home', mainControllerCallbacks.home);
+    // app.get('/home', mainControllerCallbacks.home);
     // set room conditions
     app.post('/home', mainControllerCallbacks.intervene);
 
