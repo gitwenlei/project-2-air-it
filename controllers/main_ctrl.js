@@ -107,8 +107,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                         }
                         response.render('user-home', data);
                     }else{
-
-                        response.send("DIE LIAO")
+                        response.send("DIE LIAO");
                     }
                 }
             });
@@ -172,6 +171,41 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
             });
         }
     };
+
+
+    // ==================================================
+    // Show USER PROFILE page based on logged in user_id
+    // ==================================================
+    let userProfilePage = (request, response) => {
+        const user_id = request.cookies.user_id;
+        request.body.user_id = user_id;
+        if (request.cookies.loggedin === undefined) {
+            console.log("Oops~ Not logged in");
+            response.status(403);
+            response.send("Oops~ Not logged in");
+        } else {
+            console.log("YAY~~~ Logged In!");
+            // console.log("CTRLR USER ID: ", user_id);
+            db.main.getUserProfile(user_id, (error,result) => {
+                if(error){
+                    console.log(error)
+                } else {
+
+                    if (result) {
+                        var data = {
+                            levels: result[0]
+                        }
+                        console.log('user profile: ', data.levels);
+                        response.render('user-profile', data);
+                    }else{
+                        response.send("Oops again~~~");
+                    }
+                }
+            });
+        }
+    };
+
+
 
 
 
@@ -273,6 +307,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     check: checkLogin,
     userHome: userHomePage,
     userChart: userChartPage,
+    userProfile: userProfilePage,
     liveData: sensorCloud,
     intervene: airConOn
   };
