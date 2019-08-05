@@ -173,6 +173,8 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     };
 
 
+
+
     // ==================================================
     // Show USER PROFILE page based on logged in user_id
     // ==================================================
@@ -205,6 +207,27 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
         }
     };
 
+
+    // ==================================================
+    // Show USER PROFILE page based on logged in user_id
+    // ==================================================
+
+    let updateProfile = (request, response) => {
+        console.log("request body:", request.body);
+        // db.main.getAndUpdateProfile(request.body, (error, results) => {
+        //     console.log("form content:", request.body);
+        //     console.log("results:", results);
+
+        //     if (results !== null) {
+        //         // let user_id = results[0].id;
+        //         console.log("profile updated");
+        //         response.send("profile updated");
+        //     } else {
+
+        //         response.send("invalid input");
+        //     }
+        // });
+    };
 
 
 
@@ -308,6 +331,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     userHome: userHomePage,
     userChart: userChartPage,
     userProfile: userProfilePage,
+    updateUserProfile: updateProfile,
     liveData: sensorCloud,
     intervene: airConOn
   };
