@@ -34,12 +34,9 @@ class UserProfile extends React.Component {
                         <h3>locations subscription</h3>
                         <div className="form-check form-check-block">
                             <input className="form-check-input" type="checkbox" id="check-box-ga" value="1" name="gaCheckbox" />
-                            <input id="check-box-ga" type='hidden' value='No' name='testName' />
-
                               <label className="form-check-label" for="check-box-ga">GA</label>
                         </div>
                         <div className="form-check form-check-block">
-                            <input type="hidden" value="0" name="homeCheckbox"/>
                             <input className="form-check-input" type="checkbox" id="check-box-home" value="2" name="homeCheckbox" />
                               <label className="form-check-label" for="check-box-home">HOME</label>
                         </div>
