@@ -143,6 +143,39 @@ module.exports = (dbPoolInstance) => {
 
 
 
+    // ==============================================================
+    // GET data based on logged in user to show user profile page
+    // ==============================================================
+    let getUserProfile = (user_id, callback) => {
+        const query = `SELECT
+                        user_location.user_id,
+                        users.username,
+                        users.password,
+                        user_location.location_id,
+                        locations.location_name
+                        FROM users
+                        INNER JOIN user_location
+                            ON (user_location.user_id = users.id)
+                        INNER JOIN locations
+                            ON (locations.id = user_location.location_id)
+                        WHERE users.id = '${user_id}'
+                        AND user_location.location_id = locations.id`;
+
+        dbPoolInstance.query(query, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
+
     // ===========================================================
     // POST room state based on user click
     // ===========================================================
@@ -169,6 +202,7 @@ module.exports = (dbPoolInstance) => {
         checkUsers,
         getUserLatest,
         plotUserData,
+        getUserProfile,
         insertAir,
         setRoomState
     };
