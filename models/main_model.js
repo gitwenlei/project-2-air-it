@@ -175,6 +175,35 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    // ========================
+    // UPDATE user profile
+    // ========================
+    let getAndUpdateProfile = (main, callback) => {
+        const password = main.password;
+        const user_id = main.user_id;
+
+        console.log("updated pwd:", password);
+        console.log("updated user_id:", user_id);
+
+        // let query = `UPDATE users
+        //                 SET password = '${password}'
+        //                 WHERE id = '${user_id}'`;
+
+        // dbPoolInstance.query(query, (error, queryResult) => {
+        //     if (error){
+        //         callback(error, null);
+        //     } else {
+        //         if (queryResult.rows.length > 0 ) {
+        //                 callback(null, queryResult.rows);
+        //         } else {
+        //             callback(null, null);
+        //         }
+        //     }
+        // });
+    };
+
+
+
 
     // ===========================================================
     // POST room state based on user click
@@ -203,6 +232,7 @@ module.exports = (dbPoolInstance) => {
         getUserLatest,
         plotUserData,
         getUserProfile,
+        getAndUpdateProfile,
         insertAir,
         setRoomState
     };
