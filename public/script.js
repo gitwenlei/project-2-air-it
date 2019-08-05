@@ -1,6 +1,9 @@
 console.log("we are in the browser");
 
 var button = document.querySelector("#air-con");
+var checkBoxGa = document.querySelector("#check-box-ga");
+var checkBoxHome = document.querySelector("#check-box-home");
+
 var checked;
 var activationState = false;
 var btnTxt = 'AIR-CON';
