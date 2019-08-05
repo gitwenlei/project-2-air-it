@@ -20,6 +20,25 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     };
 
 
+
+    // =======================================
+    // GET Registration FORM
+    // ========================================
+    let registerPage = (request, response) => {
+        response.render('register'); //display registration form
+    };
+
+
+
+    // =======================================
+    // POST Register New Account
+    // ========================================
+    let registerNewUser = (request, response) => {
+        console.log("register new user: ", request.body);
+        // response.render('register'); //display registration form
+    };
+
+
     // =======================================
     // Check user LOGIN details
     // ========================================
@@ -348,6 +367,8 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
    */
   return {
     index: indexPage,
+    registerForm: registerPage,
+    register: registerNewUser,
     check: checkLogin,
     userHome: userHomePage,
     userChart: userChartPage,
