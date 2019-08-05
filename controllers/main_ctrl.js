@@ -66,7 +66,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
              if(error){
                 console.log("ERRRRRRRRR", error);
             } else {
-                response.send('new account created~!');
+                response.render('user-added');
             }
         });
     };
