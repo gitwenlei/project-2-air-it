@@ -28,9 +28,15 @@ VALUES ('GA');
 INSERT INTO locations (location_name)
 VALUES ('HOME');
 
-
 INSERT INTO user_location (user_id, location_id)
 VALUES (1, 2);
 
 INSERT INTO user_location (user_id, location_id)
 VALUES (2, 1);
+
+INSERT INTO users (username, password)
+VALUES ('mary', 'xxxx');
+
+UPDATE users
+SET password = '22222'
+WHERE id = 3;
