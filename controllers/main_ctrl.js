@@ -34,8 +34,26 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     // POST Register New Account
     // ========================================
     let registerNewUser = (request, response) => {
-        console.log("register new user: ", request.body);
-        // response.render('register'); //display registration form
+
+        var ga = parseInt(request.body.gaCheckbox);
+        var home = parseInt(request.body.homeCheckbox);
+
+        var location_id = [];
+            if (ga !== undefined && home === undefined) {
+                location_id = [ga, null];
+            } else if (ga === undefined && home !== undefined) {
+                location_id = [null, ga];
+            } else if (ga !== undefined && home !== undefined) {
+                location_id = [ga, home] ;
+            }
+
+        db.main.newUser(request.body, location_id, (error, results) => {
+             if(error){
+                console.log(error)
+            } else {
+                response.send('new account created~!')
+            }
+        });
     };
 
 
