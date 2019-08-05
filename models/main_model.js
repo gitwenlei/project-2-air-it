@@ -203,7 +203,18 @@ module.exports = (dbPoolInstance) => {
                                 callback(null, updateResult.rows);
                             }
                         });
-                   }
+                   } // end of no results found
+                   // we settled [1, 2]
+                    // how about
+                    // [ NaN, NaN ]
+                    // [ 1, NaN ]
+                    // [ NaN, 2 ]
+                   // if (location_id[i] === NaN) {
+                    // if user did not select any location
+                    // AND user has no existing selection
+                    // set location_id default to user_id
+
+                   // }
                }
             });
         }
