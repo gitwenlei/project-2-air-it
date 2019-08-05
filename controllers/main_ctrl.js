@@ -35,23 +35,38 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     // ========================================
     let registerNewUser = (request, response) => {
 
-        var ga = parseInt(request.body.gaCheckbox);
-        var home = parseInt(request.body.homeCheckbox);
+        /* Stack Overflow
+        When not used with boolean values,
+        the logical OR (||) operator
+        returns the first expression (parseInt(s))
+        if it can be evaluated to true,
+        otherwise it returns the second expression (0).
+        The return value of parseInt('') is NaN.
+        NaN evaluates to false, so num ends up being set to 0. –
+        */
 
-        var location_id = [];
-            if (ga !== undefined && home === undefined) {
-                location_id = [ga, null];
-            } else if (ga === undefined && home !== undefined) {
-                location_id = [null, ga];
-            } else if (ga !== undefined && home !== undefined) {
-                location_id = [ga, home] ;
-            }
+        // converts NaN to 0
+        var ga = parseInt(request.body.gaCheckbox) || 0;
+        var home = parseInt(request.body.homeCheckbox) || 0;
+
+        var location_id = [ga, home];
+
+        // if (ga !== undefined && home === undefined) {
+        //     location_id = [ga, 0];
+        // } else if (ga === undefined && home !== undefined) {
+        //     location_id = [0, home];
+        // } else if (ga !== undefined && home !== undefined) {
+        //     location_id = [ga, home] ;
+        // } else {
+        //     location_id = [0, 0];
+        // }
 
         db.main.newUser(request.body, location_id, (error, results) => {
+            // console.log("loc: ", location_id);
              if(error){
-                console.log(error)
+                console.log("ERRRRRRRRR", error);
             } else {
-                response.send('new account created~!')
+                response.send('new account created~!');
             }
         });
     };
