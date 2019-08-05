@@ -214,19 +214,40 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
 
     let updateProfile = (request, response) => {
         console.log("request body:", request.body);
-        // db.main.getAndUpdateProfile(request.body, (error, results) => {
-        //     console.log("form content:", request.body);
-        //     console.log("results:", results);
+        const user_id = request.body.user_id;
+        const username = request.body.username;
+        const password = request.body.password;
 
-        //     if (results !== null) {
-        //         // let user_id = results[0].id;
-        //         console.log("profile updated");
-        //         response.send("profile updated");
-        //     } else {
+        var ga = parseInt(request.body.gaCheckbox);
+        var home = parseInt(request.body.homeCheckbox);
 
-        //         response.send("invalid input");
-        //     }
-        // });
+        var location_id = [];
+            if (ga !== undefined && home === undefined) {
+                location_id = [ga, null];
+                console.log("show locations: ", location_id);
+            } else if (ga === undefined && home !== undefined) {
+                location_id = [home, null];
+                console.log("show locations: ", location_id);
+            } else if (ga !== undefined && home !== undefined) {
+                location_id = [ga, home] ;
+                console.log("show locations: ", location_id);
+            }
+
+        db.main.getAndUpdateProfile(request.body, location_id, (error, results) => {
+            if (results !== null) {
+                console.log("result:", results);
+                // let user_id = results[0].id;
+                // var data {
+                //     userId: user_id,
+                //     userName: username,
+                //     passWord: password,
+                //     locationId: location_id
+                // }
+                response.send("profile updated");
+            } else {
+                response.send("error");
+            }
+        });
     };
 
 
