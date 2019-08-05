@@ -178,28 +178,35 @@ module.exports = (dbPoolInstance) => {
     // ========================
     // UPDATE user profile
     // ========================
-    let getAndUpdateProfile = (main, callback) => {
-        const password = main.password;
-        const user_id = main.user_id;
+    let getAndUpdateProfile = (main, location_id, callback) => {
+        var user_id = main.user_id;
+        for (let i = 0; i < location_id.length; i++ ) {
+            // find rows that matches both user id & location id
+            let query = `SELECT *
+                        FROM user_location
+                        WHERE user_id='${user_id}'
+                        AND location_id='${location_id[i]}'`;
 
-        console.log("updated pwd:", password);
-        console.log("updated user_id:", user_id);
-
-        // let query = `UPDATE users
-        //                 SET password = '${password}'
-        //                 WHERE id = '${user_id}'`;
-
-        // dbPoolInstance.query(query, (error, queryResult) => {
-        //     if (error){
-        //         callback(error, null);
-        //     } else {
-        //         if (queryResult.rows.length > 0 ) {
-        //                 callback(null, queryResult.rows);
-        //         } else {
-        //             callback(null, null);
-        //         }
-        //     }
-        // });
+            dbPoolInstance.query(query, (error, queryResult) => {
+                if (error) {
+                    callback(error, null);
+                } else {
+                    if (queryResult.rows.length == 0) {
+                        console.log("NO RESULTS FOUND!!!!!!!");
+                        let updateQuery = `INSERT INTO user_location (user_id, location_id) VALUES ('${user_id}', '${location_id[i]}') RETURNING *`;
+                        dbPoolInstance.query(updateQuery, (error, updateResult) => {
+                            console.log("entered update query")
+                            if (error) {
+                                console.log(error)
+                                callback(error, null);
+                            } else {
+                                callback(null, updateResult.rows);
+                            }
+                        });
+                   }
+               }
+            });
+        }
     };
 
 
