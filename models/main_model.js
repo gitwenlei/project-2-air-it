@@ -50,7 +50,7 @@ module.exports = (dbPoolInstance) => {
     // ========================================================
     let newUser = (content, location_id, callback) => {
         console.log("newUser: ", content);
-        // console.log("newUser: ", location_id);
+        console.log("locations: ", location_id);
 
         let query = `INSERT INTO users (username, password) VALUES($1, $2) RETURNING *`;
         const values = [content.username, content.password];
@@ -60,6 +60,23 @@ module.exports = (dbPoolInstance) => {
                 callback(error, null);
             } else {
                 if (queryResult.rows.length > 0) {
+                    for (let i = 0; i < location_id.length; i++) {
+                        if (location_id[i] !== 0) {
+                            let newQuery = `INSERT INTO user_location (user_id, location_id) VALUES ($1, $2) RETURNING *`;
+                            let values = [queryResult.rows[0].id, location_id[i]];
+
+                            dbPoolInstance.query(newQuery, values, (error, newResult) => {
+                                if (error) {
+                                    callback(error, null);
+                                }
+                                // else {
+                                   // if(newResult.rows.length > 0) {
+                                        // callback(null, newResult.rows[0]);
+                                    // } // end of newResults
+                                // } // end of pool error
+                            }); // end of pool query
+                        } // end of checking if location_id is NaN
+                    } // end of for loop
                     callback(null, queryResult.rows[0]);
                 } else {
                     callback(null, null);
