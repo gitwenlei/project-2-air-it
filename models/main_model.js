@@ -45,6 +45,30 @@ module.exports = (dbPoolInstance) => {
 
 
 
+    // ========================================================
+    // INSERT new user data into database
+    // ========================================================
+    let newUser = (content, location_id, callback) => {
+        console.log("newUser: ", content);
+        // console.log("newUser: ", location_id);
+
+        let query = `INSERT INTO users (username, password) VALUES($1, $2) RETURNING *`;
+        const values = [content.username, content.password];
+
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0]);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
 
     // ========================================================
     // INSERT live sensor data into database
@@ -248,6 +272,7 @@ module.exports = (dbPoolInstance) => {
     return {
         checkUsers,
         getUserLatest,
+        newUser,
         plotUserData,
         getUserProfile,
         getAndUpdateProfile,
