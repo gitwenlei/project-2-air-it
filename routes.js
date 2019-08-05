@@ -23,6 +23,14 @@ module.exports = (app, allModels) => {
 
 
     // ========================
+    // REGISTRATION STUFF
+    // ========================
+    // Register new user
+    app.get('/register', mainControllerCallbacks.registerForm);
+    app.post('/register', mainControllerCallbacks.register);
+
+
+    // ========================
     // LOGIN STUFF
     // ========================
     // verify user login
