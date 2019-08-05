@@ -55,6 +55,8 @@ module.exports = (app, allModels) => {
     // ========================
     // show user profile page
     app.get('/profile/:id', mainControllerCallbacks.userProfile);
+    // update user profile
+    app.put('/profile/:id', mainControllerCallbacks.updateUserProfile);
 
 
     // ========================
