@@ -113,7 +113,7 @@ module.exports = (dbPoolInstance) => {
     // ========================================================
     // GET latest sensor level based on user id & subscription
     // ========================================================
-    let getUserLatest = (user_id, callback) => {
+    let getUserLatest = (user_id, username, callback) => {
         let query = `SELECT
                         user_location.user_id,
                         air_levels_test.sensor_level,
@@ -136,6 +136,20 @@ module.exports = (dbPoolInstance) => {
                 callback(error, null);
             } else {
                 if (queryResult.rows.length > 0) {
+                    // let newQuery = `SELECT
+                    //                 users.username
+                    //                 FROM users
+                    //                 WHERE
+                    //                 id = '${user_id}'`;
+                    // dbPoolInstance.query(newQuery, (error, newResult) => {
+                    //     if (error) {
+                    //         callback(error, null);
+                    //     } else {
+                    //         if (newResult.rows.length > 0) {
+                    //            callback(null, newResult.rows);
+                    //         }
+                    //     }
+                    // });
                     callback(null, queryResult.rows);
                 } else {
                     callback(null, null);
