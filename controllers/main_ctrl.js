@@ -93,13 +93,14 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
 
         db.main.checkUsers(request.body, (error, results) => {
             // request.body = what  POST sent over
-            // console.log(results);
+            // console.log("user:", request.body.username);
 
             // if there is result sent back from model
             if (results !== null) {
                 // console.log(results);
                 // set the user_id to the results id
                 let user_id = results[0].id;
+                let username = results[0].username;
                 // this mean correct username and password entered
                 console.log('correct' , results[0]);
 
@@ -109,6 +110,7 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
                 // sent cookie user_id as user_id
                 // we want to keep track that this user has login
                 response.cookie('user_id', user_id);
+                response.cookie('username', username);
 
                 // go to user home page if login successful
                 // if these cookies are stored, user will not see login page
@@ -129,9 +131,11 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
     // ==============================================
     let userHomePage = (request, response) => {
         console.log("cookies:", request.cookies);
-        const user_id = request.cookies.user_id;
-        request.body.user_id = user_id;
 
+        const user_id = request.cookies.user_id;
+        const username = request.cookies.username;
+
+        request.body.user_id = user_id;
         // this returns cookies: { loggedin: 'true', user_id: '1' }
         // meaning user_id: 1 is logged in
 
@@ -147,19 +151,20 @@ var gaUrl = 'https://us.wio.seeed.io/v1/node/GroveAirqualityA0/quality?access_to
             // show most recent sensor reading
             console.log("CTRLR USER ID: ", user_id);
 
-            db.main.getUserLatest(user_id, (error,result) => {
+            db.main.getUserLatest(user_id, username, (error,result) => {
                 if(error){
                     console.log(error)
                 } else {
                     // console.log(result);
                     if (result) {
                         var data = {
-                            levels: result
+                            levels: result,
+                            userName: username
                             // states: result.room_states
                         }
                         response.render('user-home', data);
                     }else{
-                        response.send("DIE LIAO");
+                        response.send('Please login to see');
                     }
                 }
             });
