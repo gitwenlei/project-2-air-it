@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:300,400,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Dosis:400,500,800&display=swap');
 
 
 /* ==============
@@ -141,4 +142,38 @@ h1 {
 .btn-air-pure:hover {
 	background-color: #E6E6E6;
 	color: #000;
+}
+
+.air-index {
+	font-size: 1.25rem;
+	color: white;
+}
+
+.cover-img {
+	width: 128px;
+
+}
+
+.login_wrapper h1 {
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+}
+
+.register-link {
+	margin-top:20px;
+}
+
+ a:link {
+	color: #fff;
+}
+
+/* visited link */
+a:visited {
+  color: #fff;
+}
+
+.display-title {
+	font-family: 'Dosis', sans-serif;
+	font-size: 5rem;
+	color: #fff;
 }
