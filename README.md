@@ -1,4 +1,5 @@
-# project-2-air-it
+# Project 2 Air It
+
 <h3>technologies used</h3>
 HTML, CSS, Javascript, NodeJS, Heroku
 
