@@ -120,6 +120,7 @@ module.exports = (dbPoolInstance) => {
                         air_levels_test.status,
                         air_levels_test.description,
                         air_levels_test.recorded_at,
+                        user_location.location_id,
                         locations.location_name
                     FROM air_levels_test
                         INNER JOIN user_location
