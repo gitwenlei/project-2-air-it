@@ -19,6 +19,7 @@ class UserPage extends React.Component {
     console.log("home navbar user id:", this.props.levels[0].user_id);
     var userHomeUrl = "/home/" + this.props.levels[0].user_id;
     var userChartUrl = "/chart/" + this.props.levels[0].user_id;
+    var userProfileUrl = "/profile/" + this.props.userId;
 
     return (
 
@@ -33,8 +34,7 @@ class UserPage extends React.Component {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
                     <a className="nav-item nav-link active" href={userChartUrl}>Hourly <span className="sr-only">(current)</span></a>
-                    <a className="nav-item nav-link" href="#">Weekly</a>
-                    <a className="nav-item nav-link" href="#">My Profile</a>
+                    <a className="nav-item nav-link" href={userProfileUrl}>My Profile</a>
                 </div>
             </div>
         </nav>
@@ -50,10 +50,20 @@ class UserPage extends React.Component {
                     <p className="status">{levels.status}</p>
                     <p className="description">{levels.description}</p>
                 </div>
+
                   <div className="btn-group">
                       <button type="button" id="air-con" className="btn-air-con">AIR-CON OFF</button>
                       <button type="button" id="air-pure" className="btn-air-pure">AIR PURIFIER OFF</button>
                   </div>
+
+                   <div className="air-index">
+                    <p>0 to 50 air fresh - good air condition</p>
+                    <p>0 to 200 low pollution - low concentration of target gases exist</p>
+                    <p>200 to 400 high pollution - be aware of the pollution level and consider if some measures could be taken</p>
+                    <p>400 to 600 very high pollution - instant measures should be taken to improve the air quality</p>
+                </div>
+
+
                 </div>
             </div>
         </div>
