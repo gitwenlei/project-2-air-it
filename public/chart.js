@@ -16,7 +16,7 @@ var labels = myLabels;
 
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: labels,
         datasets: [{
@@ -30,7 +30,7 @@ var myChart = new Chart(ctx, {
         scales:{
             yAxes: [{
                 ticks: {
-                    beginAtZero: true,
+                    beginAtZero: true
                 }
             }]
         }
