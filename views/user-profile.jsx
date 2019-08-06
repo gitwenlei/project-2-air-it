@@ -10,10 +10,27 @@ class UserProfile extends React.Component {
     console.log("home navbar user id:", this.props.levels.user_id);
     console.log("username browser:", this.props.levels.username);
     console.log(typeof this.props.levels.user_id);
-    // var userHomeUrl = "/home/" + this.props.levels.user_id;
-    // var userChartUrl = "/chart/" + this.props.levels.user_id;
+    var userHomeUrl = "/home/" + this.props.levels.user_id;
+    var userChartUrl = "/chart/" + this.props.levels.user_id;
+    var userProfileUrl = "/profile/" + this.props.levels.user_id;
+
     return (
       <Default title="air_levels">
+
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href={userHomeUrl}>Home</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav">
+                <a className="nav-item nav-link active" href={userChartUrl}>Hourly <span className="sr-only">(current)</span></a>
+                <a className="nav-item nav-link" href={userProfileUrl}>My Profile</a>
+            </div>
+        </div>
+    </nav>
+
         <div className="container">
             <div className="col">
                 <div className="login_wrapper d-flex flex-column">
