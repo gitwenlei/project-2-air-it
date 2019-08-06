@@ -9,7 +9,8 @@ HTML, CSS, Javascript, NodeJS, Heroku
 No installation required
 
 <h3>unsolved problems</h3>
-<h5>to-be-realised</h5>
+
+<h3>to-be-realised</h3>
   <p>Login Page</p>
   <ul>
     <li>log out function</li>
@@ -19,15 +20,17 @@ No installation required
   
   <p>User Home Page</p>
   <ul>
-    <li>show multiple locations of sensor data based on user subscription</li>
+    <li>show multiple locations of sensor data based on user subscription in using bootstrap data-toggle or tabs</li>
     <li>format css to show sensor level in chartjs donut graph format</li>
     <li>css for sensor readings legend</li>
+    <li>able to set room-state, air-con 'on/off', air-purifier 'on/off'
   </ul>
   
   <p>User Chart Page</p>
   <ul>
     <li>show multiple locations of sensor data based on user subscription</li>
     <li>format xAxes timestamp with moment.js</li>
+    <li>show data of room-states e.g. air-con 'on/off' air-purifier 'on/off' against sensor readings</li>
   </ul>
   
   <p>User Profile Page</p>
@@ -38,8 +41,13 @@ No installation required
   
   <p>User Registration Page</p>
   <ul>
-    <li>Disable showing password on heroku</li>
+    <li>Disable showing password on login & registration</li>
+  </ul>
+  
+  <p>User Logged out</p>
+   <ul>
+    <li>Complete user logged out</li>
   </ul>
   
   
-</ul>
+  
