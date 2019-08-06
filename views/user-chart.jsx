@@ -7,10 +7,11 @@ class UserChart extends React.Component {
     console.log("CCCCCCCCCCchart navbar user id:", this.props.userId);
     var userHomeUrl = "/home/" + this.props.userId;
     var userChartUrl = "/chart/" + this.props.userId;
+    var userProfileUrl = "/profile/" + this.props.userId;
 
     // console.log("sensor: ", this.props.yValues);
-    // console.log("time: ", this.props.xValues);
-    // console.log("type for time:", typeof this.props.xValues);
+    console.log("time: ", this.props.xValues);
+    console.log("type for time:", typeof this.props.xValues);
     // console.log("user id inside chart pg:", this.props.userId);
     // console.log('location:', this.props.userLocation);
 
@@ -25,16 +26,13 @@ class UserChart extends React.Component {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
                 <a className="nav-item nav-link active" href={userChartUrl}>Hourly <span className="sr-only">(current)</span></a>
-                <a className="nav-item nav-link" href="#">Weekly</a>
-                <a className="nav-item nav-link" href="#">My Profile</a>
+                <a className="nav-item nav-link" href={userProfileUrl}>My Profile</a>
             </div>
         </div>
     </nav>
 
         <div className="chart-container">
-            <p>Air Quality Index</p>
-            <p>Location: {this.props.userLocation} </p>
-            <canvas id="myChart" width="1600" height="900"></canvas>
+            <canvas id="myChart" width="1200" height="800"></canvas>
         </div>
         <script dangerouslySetInnerHTML={{
             __html:
