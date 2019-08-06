@@ -8,14 +8,14 @@ class RegisterPage extends React.Component {
         <div className="container">
             <div className="col">
                 <div className="login_wrapper d-flex flex-column">
-                    <h1 className="title">Register New Account</h1>
+                    <p className="display-title">Create New Account</p>
 
                     <form action="/register" method="POST" >
-                        <h3>user name</h3>
+                        <p>user name</p>
                             <input type="text" name="username" />
-                        <h3>user name</h3>
+                        <p>password</p>
                             <input type="text" name="password" />
-                        <h3>locations subscription</h3>
+                        <p>locations subscription</p>
                         <div className="form-check form-check-block">
                             <input className="form-check-input" type="checkbox" id="check-box-ga" value="1" name="gaCheckbox" />
                               <label className="form-check-label" for="check-box-ga">GA</label>
