@@ -1,6 +1,6 @@
 # Project 2 Air It
 
-<a href="sleepy-wave-35946.herokuapp.com" target="_blank"> sleepy-wave-35946.herokuapp.com </a> 
+<a href="https://sleepy-wave-35946.herokuapp.com" target="_blank"> sleepy-wave-35946.herokuapp.com </a> 
 
 <h3>technologies used</h3>
 HTML, CSS, Javascript, NodeJS, Heroku
